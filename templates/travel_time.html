@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Time Calculator</title>
+</head>
+<body>
+
+    <h1>Travel Time Calculator</h1>
+
+   <form method="post">
+
+    <label for="distance">Distance:</label>
+    <input type="text" name="distance" id="distance"><br><br>
+
+    <label for="unit">Select Unit:</label>
+    <select name="unit" id="unit">
+        <option value="km">Kilometers (km)</option>
+        <option value="au">Astronomical Units (AU)</option>
+        <option value="ly">Light-Years (LY)</option>
+    </select><br><br>
+
+    <label for="speed">Select Spacecraft:</label>
+    <select name="speed" id="speed">
+        <option value="11.08">Apollo 10 (11.08 km/s)</option>
+        <option value="17">Voyager 1 (17 km/s)</option>
+        <option value="15.4">Voyager 2 (15.4 km/s)</option>
+        <option value="16.26">New Horizons (16.26 km/s)</option>
+        <option value="192">Parker Solar Probe (192 km/s)</option>
+        <option value="0.6">JWST (0.6 km/s)</option>
+    </select><br><br>
+
+    <button type="submit">Calculate</button>
+
+</form>
+
+    {% if error %}
+        <h3 style="color:red;">{{ error }}</h3>
+    {% endif %}
+
+    {% if time %}
+    <h2>Travel Time:</h2>
+    <p>Days: {{ days }}</p>
+    <p>Years: {{ years }}</p>
+{% endif %}
+
+    <br>
+    <a href="/">Back to Dashboard</a>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Light-Year to AU Converter</title>
+</head>
+<body>
+
+    <h1>Light-Year to AU Converter</h1>
+
+    <form method="post">
+
+        <label for="ly">Light-Years (LY):</label>
+        <input type="text" name="ly" id="ly"><br><br>
+
+        <button type="submit">Convert</button>
+
+    </form>
+
+    {% if error %}
+        <h3 style="color:red;">{{ error }}</h3>
+    {% endif %}
+
+    {% if au %}
+        <h2>Astronomical Units: {{ au }}</h2>
+    {% endif %}
+
+    <br>
+    <a href="/">Back to Dashboard</a>
+
+</body>
+</html>
