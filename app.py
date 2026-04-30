@@ -8,6 +8,7 @@ def home():
 
 @app.route("/travel_time", methods=["GET", "POST"])
 def travel_time():
+    destination = None
     time = None
     hours = None
     days = None
@@ -16,6 +17,7 @@ def travel_time():
 
     if request.method == "POST":
         try:
+            destination = request.form["destination"]
             speed = float(request.form["speed"])
             distance = float(request.form["distance"].replace(",", ""))
             unit = request.form["unit"]
@@ -42,8 +44,8 @@ def travel_time():
 
     return render_template(
         "travel_time.html",
+        destination=destination,
         time=time,
-        hours=hours,
         days=days,
         years=years,
         error=error
