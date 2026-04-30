@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>Travel Time Calculator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=3">
 </head>
 <body>
-
+    <h1>TEST TRAVEL PAGE</h1>
     <h1>Travel Time Calculator</h1>
 
    <form method="post">
@@ -42,11 +43,19 @@
     {% endif %}
 
     {% if time %}
-    <h2>Travel Time to:</h2>
-    <p style="font-size: 32px; font-weight: bold;">{{ destination }}</p>
-    <p>Days: {{ days }}</p>
-    <p>Years: {{ years }}</p>
-{% endif %}
+    <div class="result-box">
+
+        <h2>Travel Time to:</h2>
+
+        <p style="font-size: 32px; font-weight: bold;">
+        {{ destination }}
+        </p>
+
+        <p>Days: {{ days }}</p>
+        <p>Years: {{ years }}</p>
+
+    </div>
+    {% endif %}
 
     <br>
     <a href="/">Back to Dashboard</a>
