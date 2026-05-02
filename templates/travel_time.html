@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=3">
 </head>
 <body>
-    <h1>TEST TRAVEL PAGE</h1>
     <h1>Travel Time Calculator</h1>
 
    <form method="post">
@@ -23,17 +22,6 @@
         <option value="ly">Light-Years (LY)</option>
     </select><br><br>
 
-    <label for="speed">Select Spacecraft:</label>
-    <select name="speed" id="speed">
-    <option value="11.08">Apollo 10 (11.08 km/s)</option>
-    <option value="17">Voyager 1 (17 km/s)</option>
-    <option value="15.4">Voyager 2 (15.4 km/s)</option>
-    <option value="16.26">New Horizons (16.26 km/s)</option>
-    <option value="192">Parker Solar Probe (192 km/s)</option>
-    <option value="29979">10% Light Speed (29,979 km/s)</option>
-    <option value="0.6">JWST (0.6 km/s)</option>
-</select>
-
     <button type="submit">Calculate</button>
 
 </form>
@@ -42,17 +30,18 @@
         <h3 style="color:red;">{{ error }}</h3>
     {% endif %}
 
-    {% if time %}
+    {% if results %}
     <div class="result-box">
 
         <h2>Travel Time to:</h2>
 
-        <p style="font-size: 32px; font-weight: bold;">
-        {{ destination }}
+        <p style="font-size: 25px; font-weight: bold;">
+            {{ destination }}
         </p>
 
-        <p>Days: {{ days }}</p>
-        <p>Years: {{ years }}</p>
+        {% for result in results %}
+            <p>{{ result.name }}: {{ result.years }} years</p>
+        {% endfor %}
 
     </div>
     {% endif %}

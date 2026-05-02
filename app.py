@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, redirect, request
 app = Flask(__name__)
 
@@ -9,16 +10,21 @@ def home():
 @app.route("/travel_time", methods=["GET", "POST"])
 def travel_time():
     destination = None
-    time = None
-    hours = None
-    days = None
-    years = None
+    results = None
     error = None
 
     if request.method == "POST":
         try:
             destination = request.form["destination"]
-            speed = float(request.form["speed"])
+            spacecraft = {
+                "Apollo 10": 11.08,
+                "Voyager 1": 17,
+                "Voyager 2": 15.4,
+                "New Horizons": 16.26,
+                "Parker Solar Probe": 192,
+                "JWST": 0.6,
+                "10% Light Speed": 29979
+            }
             distance = float(request.form["distance"].replace(",", ""))
             unit = request.form["unit"]
 
@@ -27,17 +33,19 @@ def travel_time():
                 distance *= 149597870.7
             elif unit == "ly":
                 distance *= 9.4607e12
-            if speed <= 0:
-                error = "Speed must be greater than zero."
-            elif distance < 0:
+            if distance < 0:
                 error = "Distance cannot be negative."
             else:
-                time_seconds = distance / speed
+                results = []
 
-                time = round(time_seconds, 2)
-                hours = round(time_seconds / 3600, 2)
-                days = f"{time_seconds / 86400:,.2f}"
-                years = f"{time_seconds / 31557600:,.2f}"
+                for craft, speed in spacecraft.items():
+                    time_seconds = distance / speed
+                    years = time_seconds / 31557600
+
+                    results.append({
+                        "name": craft,
+                        "years": f"{years:,.2f}"
+                    })
 
         except ValueError:
             error = "Please enter a valid distance."
@@ -45,9 +53,7 @@ def travel_time():
     return render_template(
         "travel_time.html",
         destination=destination,
-        time=time,
-        days=days,
-        years=years,
+        results=results,
         error=error
     )
 
