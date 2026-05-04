@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Time Calculator V2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+    <h1>Travel Time Calculator V2 (Database)</h1>
+
+    <form method="post">
+
+        <label for="destination">Select Destination:</label>
+        <select name="destination" id="destination">
+            {% for object_name in space_objects %}
+                <option value="{{ object_name }}">{{ object_name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="speed">Select Spacecraft:</label>
+        <select name="speed" id="speed">
+            <option value="11.08">Apollo 10 (11.08 km/s)</option>
+            <option value="15.4">Voyager 2 (15.4 km/s)</option>
+            <option value="192">Parker Solar Probe (192 km/s)</option>
+            <option value="29979">10% Light Speed (29,979 km/s)</option>
+        </select><br>
+
+        <button type="submit">Calculate</button>
+
+    </form>
+
+    {% if error %}
+        <h3 style="color:red;">{{ error }}</h3>
+    {% endif %}
+
+    {% if days %}
+    <div class="result-box">
+
+        <h2>Travel Time to:</h2>
+
+        <p style="font-size: 28px; font-weight: bold;">
+            {{ destination }}
+        </p>
+
+        <p>Days: {{ days }}</p>
+        <p>Years: {{ years }}</p>
+
+    </div>
+    {% endif %}
+
+    <br>
+    <a href="/">Back to Dashboard</a>
+
+</body>
+</html>

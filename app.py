@@ -2,58 +2,107 @@
 from flask import Flask, render_template, redirect, request
 app = Flask(__name__)
 
+space_objects = {
+    "Moon": {"distance": 384400, "unit": "km"},
+    "Mars": {"distance": 225000000, "unit": "km"},
+    "Jupiter": {"distance": 778000000, "unit": "km"},
+    "Pluto": {"distance": 5900000000, "unit": "km"},
+    "Alpha Centauri": {"distance": 4.37, "unit": "ly"},
+    "Betelgeuse": {"distance": 642.5, "unit": "ly"},
+    "Capella": {"distance": 42.9, "unit": "ly"},
+    "Andromeda Galaxy": {"distance": 2537000, "unit": "ly"}
+}
+
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
 @app.route("/travel_time", methods=["GET", "POST"])
 def travel_time():
-    destination = None
-    results = None
+    time = None
     error = None
+    destination = None
+    days = None
+    years = None
 
     if request.method == "POST":
         try:
             destination = request.form["destination"]
-            spacecraft = {
-                "Apollo 10": 11.08,
-                "Voyager 1": 17,
-                "Voyager 2": 15.4,
-                "New Horizons": 16.26,
-                "Parker Solar Probe": 192,
-                "JWST": 0.6,
-                "10% Light Speed": 29979
-            }
             distance = float(request.form["distance"].replace(",", ""))
             unit = request.form["unit"]
+            speed = float(request.form["speed"])
 
-            # Convert all distance to kilometers
+            # Convert to kilometers
             if unit == "au":
-                distance *= 149597870.7
+                distance_km = distance * 149597870.7
             elif unit == "ly":
-                distance *= 9.4607e12
-            if distance < 0:
-                error = "Distance cannot be negative."
+                distance_km = distance * 9.4607e12
             else:
-                results = []
+                distance_km = distance
 
-                for craft, speed in spacecraft.items():
-                    time_seconds = distance / speed
-                    years = time_seconds / 31557600
+            # Time calculations
+            time_seconds = distance_km / speed
+            days_value = time_seconds / 86400
+            years_value = days_value / 365
 
-                    results.append({
-                        "name": craft,
-                        "years": f"{years:,.2f}"
-                    })
+            days = f"{days_value:,.2f}"
+            years = f"{years_value:,.2f}"
 
         except ValueError:
-            error = "Please enter a valid distance."
+            error = "Please enter valid numeric values."
 
     return render_template(
         "travel_time.html",
+        time=time,
+        error=error,
         destination=destination,
-        results=results,
+        days=days,
+        years=years
+    )
+
+
+@app.route("/travel_time_db", methods=["GET", "POST"])
+def travel_time_db():
+    time = None
+    days = None
+    years = None
+    error = None
+    destination = None
+
+    if request.method == "POST":
+        try:
+            destination = request.form["destination"]
+            speed = float(request.form["speed"])
+
+            selected_object = space_objects[destination]
+            distance = selected_object["distance"]
+            unit = selected_object["unit"]
+
+            # Convert to kilometers
+            if unit == "au":
+                distance_km = distance * 149597870.7
+            elif unit == "ly":
+                distance_km = distance * 9.4607e12
+            else:
+                distance_km = distance
+
+            # Time calculations
+            time_seconds = distance_km / speed
+            days_value = time_seconds / 86400
+            years_value = days_value / 365
+
+            days = f"{days_value:,.2f}"
+            years = f"{years_value:,.2f}"
+
+        except Exception:
+            error = "Please select a valid destination."
+
+    return render_template(
+        "travel_time_db.html",
+        space_objects=space_objects,
+        destination=destination,
+        days=days,
+        years=years,
         error=error
     )
 
