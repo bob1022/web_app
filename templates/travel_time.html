@@ -5,7 +5,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=3">
 </head>
 <body>
-    <h1>Travel Time Calculator</h1>
+    <h1>Travel Time Calculator<br>
+        Use in Conjuction with Stellarium
+    </h1>
 
    <form method="post">
 
@@ -47,21 +49,20 @@
         <h3 style="color:red;">{{ error }}</h3>
     {% endif %}
 
-    {% if results %}
-    <div class="result-box">
+    {% if days %}
+<div class="result-box">
 
-        <h2>Travel Time to:</h2>
+    <h2>Travel Time to:</h2>
 
-        <p style="font-size: 25px; font-weight: bold;">
-            {{ destination }}
-        </p>
+    <p style="font-size: 25px; font-weight: bold;">
+        {{ destination }}
+    </p>
 
-        {% for result in results %}
-            <p>{{ result.name }}: {{ result.years }} years</p>
-        {% endfor %}
+    <p>Days: {{ days }}</p>
+    <p>Years: {{ years }}</p>
 
-    </div>
-    {% endif %}
+</div>
+{% endif %}
 
     <br>
     <a href="/">Back to Dashboard</a>

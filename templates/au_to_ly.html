@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>AU to Light-Year Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=3">
 </head>
 <body>
 
@@ -10,20 +11,30 @@
 
     <form method="post">
 
-        <label for="au">Astronomical Units (AU):</label>
-        <input type="text" name="au" id="au"><br><br>
+    <div class="form-row">
+        <label for="au">Astronomical Units:</label>
+        <input type="text" name="au" id="au">
+    </div>
 
-        <button type="submit">Convert</button>
+    <button type="submit">Convert</button>
 
-    </form>
+</form>
 
     {% if error %}
         <h3 style="color:red;">{{ error }}</h3>
     {% endif %}
 
     {% if ly %}
-        <h2>Light-Years: {{ ly }}</h2>
-    {% endif %}
+<div class="result-box">
+
+    <h2>Light-Years:</h2>
+
+    <p style="font-size: 25px; font-weight: bold;">
+        {{ ly }}
+    </p>
+
+</div>
+{% endif %}
 
     <br>
     <a href="/">Back to Dashboard</a>

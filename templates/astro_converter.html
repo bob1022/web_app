@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Astro Unit Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+    <h1>Astro Unit Converter</h1>
+
+    <form method="post">
+
+        <div class="form-row">
+            <label for="value">Value:</label>
+            <input type="text" name="value" id="value">
+        </div>
+
+        <div class="form-row">
+            <label for="from_unit">From:</label>
+            <select name="from_unit" id="from_unit">
+                <option value="km">Kilometers (km)</option>
+                <option value="au">Astronomical Units (AU)</option>
+                <option value="ly">Light-Years (LY)</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="to_unit">To:</label>
+            <select name="to_unit" id="to_unit">
+                <option value="km">Kilometers (km)</option>
+                <option value="au">Astronomical Units (AU)</option>
+                <option value="ly">Light-Years (LY)</option>
+            </select>
+        </div>
+
+        <br>
+        <button type="submit">Convert</button>
+
+    </form>
+
+    {% if error %}
+        <h3 style="color:red;">{{ error }}</h3>
+    {% endif %}
+
+    {% if result %}
+    <div class="result-box">
+
+        <h2>Converted Value:</h2>
+
+        <p style="font-size: 25px; font-weight: bold;">
+            {{ result }}
+        </p>
+
+    </div>
+    {% endif %}
+
+    <br>
+    <a href="/">Back to Dashboard</a>
+
+</body>
+</html>

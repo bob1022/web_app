@@ -2,27 +2,28 @@
 <html>
 <head>
     <title>Astronomy Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
 
-    <h1>Astronomy Dashboard</h1>
+    <h1>Astronomy Tools Dashboard</h1>
 
     <hr>
 
     <h2>Tools</h2>
 
     <form action="/travel_time">
-        <button type="submit">Travel Time Calculator</button>
+        <button type="submit">Travel Time Calculator - User input</button>
     </form>
 
     <br>
 
     <form action="/travel_time_db">
-        <button type="submit">Travel Time Calculator V2 (Database)</button>
+        <button type="submit">Travel Time Calculator - Database input</button>
     </form>
 
     <br>
-
+<!--
     <form action="/au_to_ly">
         <button type="submit">AU to Light-Year Converter</button>
     </form>
@@ -34,10 +35,17 @@
     </form>
 
     <br>
+-->
+    <form action="/astro_converter">
+        <button type="submit">Astro Unit Converter</button>
+    </form>
+    <br>
 
     <form action="/stellarium">
         <button type="submit">Open Stellarium Web</button>
     </form>
+
+   
 
 </body>
 </html>

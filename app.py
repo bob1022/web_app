@@ -151,6 +151,42 @@ def ly_to_au():
 def stellarium():
     return redirect("https://stellarium-web.org/")
 
+@app.route("/astro_converter", methods=["GET", "POST"])
+def astro_converter():
+    result = None
+    error = None
+
+    conversion_to_km = {
+        "km": 1,
+        "au": 149597870.7,
+        "ly": 9.4607e12
+    }
+
+    if request.method == "POST":
+        try:
+            value = float(request.form["value"].replace(",", ""))
+            from_unit = request.form["from_unit"]
+            to_unit = request.form["to_unit"]
+
+            if value < 0:
+                error = "Value cannot be negative."
+            else:
+                km_value = value * conversion_to_km[from_unit]
+                converted_value = km_value / conversion_to_km[to_unit]
+
+                if converted_value < 1:
+                    result = f"{converted_value:,.6f}"
+                else:
+                    result = f"{converted_value:,.2f}"
+
+        except ValueError:
+            error = "Please enter a valid numeric value."
+
+    return render_template(
+        "astro_converter.html",
+        result=result,
+        error=error
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

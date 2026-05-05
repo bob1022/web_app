@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Light-Year to AU Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=3">
 </head>
 <body>
 
@@ -21,9 +22,17 @@
         <h3 style="color:red;">{{ error }}</h3>
     {% endif %}
 
-    {% if au %}
-        <h2>Astronomical Units: {{ au }}</h2>
-    {% endif %}
+    {% if ly %}
+<div class="result-box">
+
+    <h2>Astronomical Units:</h2>
+
+    <p style="font-size: 25px; font-weight: bold;">
+        {{ ly }}
+    </p>
+
+</div>
+{% endif %}
 
     <br>
     <a href="/">Back to Dashboard</a>
