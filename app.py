@@ -2,6 +2,49 @@
 from flask import Flask, render_template, redirect, request
 app = Flask(__name__)
 
+SPACECRAFTS = {
+    "Apollo 10": 11.08,
+    "Voyager 1": 17.0,
+    "Voyager 2": 15.4,
+    "New Horizons": 16.26,
+    "Parker Solar Probe": 192.0,
+    "JWST": 0.6,
+    "10% Speed of Light": 29979
+}
+
+
+def convert_to_km(distance, unit):
+    if unit == "au":
+        return distance * 149597870.7
+    elif unit == "ly":
+        return distance * 9.4607e12
+    elif unit == "pc":
+        return distance * 3.0857e13
+    elif unit == "kpc":
+        return distance * 3.0857e16
+    elif unit == "mpc":
+        return distance * 3.0857e19
+    return distance
+
+
+def format_distance(distance_km):
+    au = distance_km / 149597870.7
+    ly = distance_km / 9.4607e12
+    pc = ly / 3.26156
+    kpc = pc / 1000
+    mpc = kpc / 1000
+
+    if au < 1000:
+        return f"{au:,.2f} AU"
+    elif ly < 100:
+        return f"{ly:,.2f} LY"
+    elif pc < 1000:
+        return f"{pc:,.2f} PC"
+    elif kpc < 1000:
+        return f"{kpc:,.2f} KPC"
+    else:
+        return f"{mpc:,.2f} MPC"
+
 space_objects = {
     "Moon": {"distance": 384400, "unit": "km"},
     "Mars": {"distance": 225000000, "unit": "km"},
@@ -10,7 +53,7 @@ space_objects = {
     "Alpha Centauri": {"distance": 4.37, "unit": "ly"},
     "Betelgeuse": {"distance": 642.5, "unit": "ly"},
     "Capella": {"distance": 42.9, "unit": "ly"},
-    "Andromeda Galaxy": {"distance": 2537000, "unit": "ly"}
+    "Andromeda Galaxy": {"distance": 0.778, "unit": "mpc"}
 }
 
 @app.route("/")
@@ -20,25 +63,27 @@ def home():
 @app.route("/travel_time", methods=["GET", "POST"])
 def travel_time():
     time = None
+    user_distance = None
     error = None
     destination = None
+    distance = None
+    distance_display = None
     days = None
     years = None
+    spacecraft = None
+    speed = None
 
     if request.method == "POST":
         try:
             destination = request.form["destination"]
-            distance = float(request.form["distance"].replace(",", ""))
+            user_distance = request.form["distance"]
+            distance = float(user_distance.replace(",", ""))
             unit = request.form["unit"]
-            speed = float(request.form["speed"])
+            spacecraft = request.form["spacecraft"]
+            speed = SPACECRAFTS[spacecraft]
 
             # Convert to kilometers
-            if unit == "au":
-                distance_km = distance * 149597870.7
-            elif unit == "ly":
-                distance_km = distance * 9.4607e12
-            else:
-                distance_km = distance
+            distance_km = convert_to_km(distance, unit)
 
             # Time calculations
             time_seconds = distance_km / speed
@@ -47,17 +92,24 @@ def travel_time():
 
             days = f"{days_value:,.2f}"
             years = f"{years_value:,.2f}"
+            distance = f"{distance_km:,.2f}"
+            distance_display = format_distance(distance_km)
+            spacecraft=spacecraft,
+            speed=speed
 
         except ValueError:
             error = "Please enter valid numeric values."
 
     return render_template(
         "travel_time.html",
-        time=time,
-        error=error,
         destination=destination,
+        user_distance=user_distance,
+        spacecraft=spacecraft,
+        speed=speed,
+        distance=distance_display,
         days=days,
-        years=years
+        years=years,
+        error=error
     )
 
 
@@ -68,23 +120,24 @@ def travel_time_db():
     years = None
     error = None
     destination = None
+    distance = None
+    distance_display = None
+    spacecraft = None
+    speed = None
 
     if request.method == "POST":
         try:
             destination = request.form["destination"]
-            speed = float(request.form["speed"])
+
+            spacecraft = request.form["spacecraft"]
+            speed = SPACECRAFTS[spacecraft]
 
             selected_object = space_objects[destination]
             distance = selected_object["distance"]
             unit = selected_object["unit"]
 
             # Convert to kilometers
-            if unit == "au":
-                distance_km = distance * 149597870.7
-            elif unit == "ly":
-                distance_km = distance * 9.4607e12
-            else:
-                distance_km = distance
+            distance_km = convert_to_km(distance, unit)
 
             # Time calculations
             time_seconds = distance_km / speed
@@ -93,6 +146,7 @@ def travel_time_db():
 
             days = f"{days_value:,.2f}"
             years = f"{years_value:,.2f}"
+            distance_display = format_distance(distance_km)
 
         except Exception:
             error = "Please select a valid destination."
@@ -101,6 +155,9 @@ def travel_time_db():
         "travel_time_db.html",
         space_objects=space_objects,
         destination=destination,
+        spacecraft=spacecraft,
+        speed=speed,
+        distance=distance_display,
         days=days,
         years=years,
         error=error

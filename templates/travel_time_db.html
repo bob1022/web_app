@@ -12,18 +12,23 @@
 
         <label for="destination">Select Destination:</label>
         <select name="destination" id="destination">
-            {% for object_name in space_objects %}
-                <option value="{{ object_name }}">{{ object_name }}</option>
+            {% for object in space_objects %}
+                <option value="{{ object }}" {% if object == destination %}selected{% endif %}>
+                    {{ object }}
+                </option>
             {% endfor %}
         </select><br>
 
-        <label for="speed">Select Spacecraft:</label>
-        <select name="speed" id="speed">
-            <option value="11.08">Apollo 10 (11.08 km/s)</option>
-            <option value="15.4">Voyager 2 (15.4 km/s)</option>
-            <option value="192">Parker Solar Probe (192 km/s)</option>
-            <option value="29979">10% Light Speed (29,979 km/s)</option>
-        </select><br>
+        <label for="spacecraft">Select Spacecraft:</label>
+        <select name="spacecraft" id="spacecraft">
+            <option value="Apollo 10" {% if spacecraft == "Apollo 10" %}selected{% endif %}>Apollo 10 (11.08 km/s)</option>
+            <option value="Voyager 1" {% if spacecraft == "Voyager 1" %}selected{% endif %}>Voyager 1 (17.0 km/s)</option>
+            <option value="Voyager 2" {% if spacecraft == "Voyager 2" %}selected{% endif %}>Voyager 2 (15.4 km/s)</option>
+            <option value="New Horizons" {% if spacecraft == "New Horizons" %}selected{% endif %}>New Horizons (16.26 km/s)</option>
+            <option value="Parker Solar Probe" {% if spacecraft == "Parker Solar Probe" %}selected{% endif %}>Parker Solar Probe (192 km/s)</option>
+            <option value="JWST" {% if spacecraft == "JWST" %}selected{% endif %}>JWST (0.6 km/s)</option>
+            <option value="10% Speed of Light" {% if spacecraft == "10% Speed of Light" %}selected{% endif %}>10% Speed of Light (29,979 km/s)</option>
+        </select><br><br>
 
         <button type="submit">Calculate</button>
 
@@ -38,10 +43,15 @@
 
         <h2>Travel Time to:</h2>
 
-        <p style="font-size: 28px; font-weight: bold;">
+        <p style="font-size: 25px; font-weight: bold;">
             {{ destination }}
         </p>
 
+        {% if spacecraft %}
+            <p>Spacecraft: {{ spacecraft }} at {{ speed }} km/s</p>
+        {% endif %}
+
+        <p>Distance: {{ distance }}</p>
         <p>Days: {{ days }}</p>
         <p>Years: {{ years }}</p>
 
