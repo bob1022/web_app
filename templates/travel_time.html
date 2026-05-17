@@ -5,9 +5,12 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=3">
 </head>
 <body>
-   <h1 style="margin: 0 0 10px 0;">
-        Travel Time Calculator
-    </h1>
+   <h1>
+    Travel Time Calculator<br>
+    <span style="font-size: 16px;">
+        Use with Stellarium Web for manual object distances
+    </span>
+    </h1>>
 
     <p style="margin: 0;">
         Use in Conjunction with Stellarium
@@ -37,14 +40,14 @@
     <div class="form-row">
         <label for="spacecraft">Select Spacecraft:</label>
         <select name="spacecraft" id="spacecraft">
-            <option value="Apollo 10">Apollo 10 (11.08 km/s)</option>
-            <option value="Voyager 1">Voyager 1 (17.0 km/s)</option>
-            <option value="Voyager 2">Voyager 2 (15.4 km/s)</option>
-            <option value="New Horizons">New Horizons (16.26 km/s)</option>
-            <option value="Parker Solar Probe">Parker Solar Probe (192 km/s)</option>
-            <option value="JWST">JWST (0.6 km/s)</option>
-            <option value="10% Speed of Light">10% Speed of Light (29,979 km/s)</option>
-        </select>
+    <option value="Apollo 10">Apollo 10 (11.08 km/s or 24,785 mph)</option>
+    <option value="Voyager 1">Voyager 1 (17.0 km/s or 38,028 mph)</option>
+    <option value="Voyager 2">Voyager 2 (15.4 km/s or 34,449 mph)</option>
+    <option value="New Horizons">New Horizons (16.26 km/s or 36,374 mph)</option>
+    <option value="Parker Solar Probe">Parker Solar Probe (192 km/s or 429,492 mph)</option>
+    <option value="JWST">JWST (0.6 km/s or 1,342 mph)</option>
+    <option value="10% Speed of Light">10% Speed of Light (29,979 km/s or 67,061,673 mph)</option>
+</select>
     </div>
     <br>
     <button type="submit">Calculate</button>
@@ -64,7 +67,7 @@
     {{ destination }}
 </p>
 
-<p>Spacecraft: {{ spacecraft }} at {{ speed }} km/s</p>
+<p>Spacecraft: {{ spacecraft }} at {{ speed }} km/s or {{ mph }} mph</p>
 <p>Distance: {{ distance }}</p>
 <p>Days: {{ days }}</p>
 <p>Years: {{ years }}</p>

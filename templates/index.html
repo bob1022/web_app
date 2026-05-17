@@ -23,29 +23,86 @@
     </form>
 
     <br>
-<!--
-    <form action="/au_to_ly">
-        <button type="submit">AU to Light-Year Converter</button>
-    </form>
 
-    <br>
-
-    <form action="/ly_to_au">
-        <button type="submit">Light-Year to AU Converter</button>
-    </form>
-
-    <br>
--->
     <form action="/astro_converter">
         <button type="submit">Astro Unit Converter</button>
     </form>
     <br>
 
-    <form action="/stellarium">
-        <button type="submit">Open Stellarium Web</button>
-    </form>
+    <a href="/stellarium" target="_blank">
+        <button type="button">Open Stellarium (New Tab)</button>
+    </a>
 
+    <div class="help-buttons">
+        <button onclick="openModal('stellarium')">Stellarium Instructions</button>
+        <button onclick="openModal('lightyear')">Light-Year Definition</button>
+        <button onclick="openModal('general')">General Instructions</button>
+    </div>
    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-text"></div>
+        </div>
+    </div>
+
+    <script>
+    function openModal(type) {
+        const content = {
+            stellarium: `Using Stellarium with This App
+
+            1. Click "Open Stellarium" to launch Stellarium Web in a new tab.
+            2. Search for stars, planets, galaxies, or deep-space objects.
+            3. Record the displayed distance.
+            4. Return to the Astronomy Dashboard tab.
+            5. Enter the object name and distance manually into Travel Time Calculator V1.
+
+            Tips:
+            • Use V1 for manual distances from Stellarium
+            • Use V2 for built-in database objects
+            • Keep both tabs open for faster workflow`,
+            
+            lightyear: `Understanding Light-Years
+
+            A light-year is the distance light travels in one year.
+            Light moves at about 186,000 miles per second (300,000 km/s).
+
+            The Earth has a circumference of about 24,901 miles.
+            If a light beam could circle the Earth, it would do
+            so about 7.5 times in one second!
+
+            That means:
+            1 light-year ≈ 5.88 trillion miles (9.46 trillion km)
+
+            Why use light-years?
+            Space is so vast that miles or kilometers become impractical.
+
+            Examples:
+            Earth to Sun: about 8 light-minutes
+            Nearest star (Alpha Centauri): 4.37 light-years
+            Milky Way galaxy: ~100,000 light-years across
+
+            When you see a distance in light-years, you are also looking back in
+            time. If a star is 100 light-years away, the light you see today
+            left that star 100 years ago.
+
+            Other units used in astronomy include:
+            Astronomical Unit (AU): Average distance from Earth to Sun (~93 million miles)
+            Parsec (pc): About 3.26 light-years
+            Kiloparsec (kpc): 1,000 parsecs
+            Megaparsec (Mpc): 1 million parsecs`,
+
+            general: "Use the tools on this dashboard to explore astronomical distances and travel times."
+        };
+
+        document.getElementById("modal-text").innerText = content[type];
+        document.getElementById("modal").style.display = "block";
+    }
+
+        function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+    </script>
 
 </body>
 </html>

@@ -72,6 +72,8 @@ def travel_time():
     years = None
     spacecraft = None
     speed = None
+    mph = None
+    
 
     if request.method == "POST":
         try:
@@ -80,13 +82,16 @@ def travel_time():
             distance = float(user_distance.replace(",", ""))
             unit = request.form["unit"]
             spacecraft = request.form["spacecraft"]
-            speed = SPACECRAFTS[spacecraft]
+            speed_value = SPACECRAFTS[spacecraft]
+            speed = f"{speed_value:,.0f}"
+            mph = f"{speed_value * 2236.936:,.0f}"
+            # mph = f"{speed * 2236.936:,.0f}"
 
             # Convert to kilometers
             distance_km = convert_to_km(distance, unit)
 
             # Time calculations
-            time_seconds = distance_km / speed
+            time_seconds = distance_km / speed_value
             days_value = time_seconds / 86400
             years_value = days_value / 365
 
@@ -103,9 +108,9 @@ def travel_time():
     return render_template(
         "travel_time.html",
         destination=destination,
-        user_distance=user_distance,
         spacecraft=spacecraft,
         speed=speed,
+        mph=mph,
         distance=distance_display,
         days=days,
         years=years,
@@ -124,13 +129,16 @@ def travel_time_db():
     distance_display = None
     spacecraft = None
     speed = None
+    mph = None
 
     if request.method == "POST":
         try:
             destination = request.form["destination"]
 
             spacecraft = request.form["spacecraft"]
-            speed = SPACECRAFTS[spacecraft]
+            speed_value = SPACECRAFTS[spacecraft]
+            speed = f"{speed_value:,.0f}"
+            mph = f"{speed_value * 2236.936:,.0f}"
 
             selected_object = space_objects[destination]
             distance = selected_object["distance"]
@@ -140,7 +148,7 @@ def travel_time_db():
             distance_km = convert_to_km(distance, unit)
 
             # Time calculations
-            time_seconds = distance_km / speed
+            time_seconds = distance_km / speed_value
             days_value = time_seconds / 86400
             years_value = days_value / 365
 
@@ -157,6 +165,7 @@ def travel_time_db():
         destination=destination,
         spacecraft=spacecraft,
         speed=speed,
+        mph=mph,
         distance=distance_display,
         days=days,
         years=years,
@@ -215,8 +224,12 @@ def astro_converter():
 
     conversion_to_km = {
         "km": 1,
+        "mls": 1.60934,
         "au": 149597870.7,
-        "ly": 9.4607e12
+        "ly": 9.4607e12,
+        "pc": 3.0857e13,
+        "kpc": 3.0857e16,
+        "mpc": 3.0857e19
     }
 
     if request.method == "POST":
@@ -231,10 +244,22 @@ def astro_converter():
                 km_value = value * conversion_to_km[from_unit]
                 converted_value = km_value / conversion_to_km[to_unit]
 
-                if converted_value < 1:
-                    result = f"{converted_value:,.6f}"
-                else:
-                    result = f"{converted_value:,.2f}"
+                unit_names = {
+                "km": "Kilometers",
+                "mls": "Miles",
+                "au": "AU",
+                "ly": "Light-Year",
+                "pc": "Parsec",
+                "kpc": "Kiloparsec",
+                "mpc": "Megaparsec"
+            }
+
+            if converted_value < 1:
+                 converted_text = f"{converted_value:,.6f}"
+            else:
+                converted_text = f"{converted_value:,.2f}"
+
+            result = f"{value:g} {unit_names[from_unit]} = {converted_text} {unit_names[to_unit]}"
 
         except ValueError:
             error = "Please enter a valid numeric value."
