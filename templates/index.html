@@ -13,13 +13,13 @@
     <h2>Tools</h2>
 
     <form action="/travel_time">
-        <button type="submit">Travel Time Calculator - User input</button>
+        <button type="submit">Travel Time Calculator - User input - V1</button>
     </form>
 
     <br>
 
     <form action="/travel_time_db">
-        <button type="submit">Travel Time Calculator - Database input</button>
+        <button type="submit">Travel Time Calculator - Database input - V2</button>
     </form>
 
     <br>
@@ -53,14 +53,18 @@
 
             1. Click "Open Stellarium" to launch Stellarium Web in a new tab.
             2. Search for stars, planets, galaxies, or deep-space objects.
-            3. Record the displayed distance.
+            3. Record the object name and displayed distance.
             4. Return to the Astronomy Dashboard tab.
             5. Enter the object name and distance manually into Travel Time Calculator V1.
 
             Tips:
             • Use V1 for manual distances from Stellarium
             • Use V2 for built-in database objects
-            • Keep both tabs open for faster workflow`,
+            • Keep both tabs open for faster workflow
+            Once both Stellarium and the Astronomy Travel Calculator tabs are open, 
+            check the browser to see if it has a split view function. If it has, 
+            explore using split view for a more efficient use of Stellarium and the 
+            Time Travel Calculator – User input. It makes the experience much more enjoyable.`,
             
             lightyear: `Understanding Light-Years
 
@@ -82,17 +86,41 @@
             Nearest star (Alpha Centauri): 4.37 light-years
             Milky Way galaxy: ~100,000 light-years across
 
-            When you see a distance in light-years, you are also looking back in
-            time. If a star is 100 light-years away, the light you see today
+            When you see a distance in light-years, you are also looking back
+            in time. If a star is 100 light-years away, the light you see today
             left that star 100 years ago.
 
             Other units used in astronomy include:
-            Astronomical Unit (AU): Average distance from Earth to Sun (~93 million miles)
+            Astronomical Unit (AU): Average distance from Earth to Sun 
+                  (~93 million miles)
             Parsec (pc): About 3.26 light-years
             Kiloparsec (kpc): 1,000 parsecs
             Megaparsec (Mpc): 1 million parsecs`,
 
-            general: "Use the tools on this dashboard to explore astronomical distances and travel times."
+            general: `Use the tools on this dashboard to explore astronomical distances and travel times.
+
+            While space is the most visible object to most people on Earth, it is also one of the most misunderstood. This website is designed to help put its vastness into better perspective.
+
+            The first thing to understand is the light-year. Under the yellow buttons, click on Light-Year Definition. When you read this, you should gain a better understanding of what a light-year represents.
+
+            Once you have a basic understanding of the light-year, this will help you understand larger units such as:
+            • Parsec (3.26 light-years)
+            • Kiloparsec (1,000 parsecs)
+            • Megaparsec (1,000,000 parsecs)
+            • Gigaparsec (1,000,000,000 parsecs)
+
+            Use the Travel Time Calculator – Database Input (V2) to calculate how long it would take to travel to different objects in space. These objects are stored in a built-in database. Once a destination is selected, choose a spacecraft, then press Calculate to determine travel time.
+
+            Use the Travel Time Calculator – User Input (V1) to manually enter object data from Stellarium. Once Destination, Distance, Units, and Spacecraft are selected, you can calculate custom travel times.
+
+            Use Astro Unit Converter to convert between:
+            • Kilometers
+            • Miles
+            • Astronomical Units
+            • Light-Years
+            • Parsecs
+            • Kiloparsecs
+            • Megaparsecs`
         };
 
         document.getElementById("modal-text").innerText = content[type];
