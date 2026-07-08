@@ -34,7 +34,8 @@ form label {
     font-weight: bold;
 }
 
-input, select {
+input,
+select {
     padding: 6px;
     font-size: 20px;
     margin-top: 3px;
@@ -84,7 +85,7 @@ a:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-content {
@@ -147,4 +148,15 @@ body::before {
     text-align: center;
     color: #cccccc;
     font-size: 14px;
+
+
+# ! ALERT 
+# ? QUESTION 
+# TODO: Something 
+# * HEADER
+
+<!-- ! ALERT -->
+<!-- ? QUESTION -->
+<!-- TODO: Something -->
+<!-- * HEADER -->
 }
