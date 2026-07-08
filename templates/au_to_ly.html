@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRB821G31B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BRB821G31B');
+</script>
+
+    <title>AU to Light-Year Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=3">
+</head>
+<body>
+
+    <h1>AU to Light-Year Converter</h1>
+
+    <form method="post">
+
+    <div class="form-row">
+        <label for="au">Astronomical Units:</label>
+        <input type="text" name="au" id="au">
+    </div>
+
+    <button type="submit">Convert</button>
+
+</form>
+
+    {% if error %}
+        <h3 style="color:red;">{{ error }}</h3>
+    {% endif %}
+
+    {% if ly %}
+<div class="result-box">
+
+    <h2>Light-Years:</h2>
+
+    <p style="font-size: 25px; font-weight: bold;">
+        {{ ly }}
+    </p>
+
+</div>
+{% endif %}
+
+    <br>
+    <a href="/">Back to Dashboard</a>
+
+</body>
+</html>

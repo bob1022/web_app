@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRB821G31B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BRB821G31B');
+</script>
+
+    <title>Astro Unit Converter</title>
+     <link rel="icon"
+          type="image/png"
+          href="{{ url_for('static', filename='images/rocket.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+    <h1>Astro Unit Converter</h1>
+
+    <form method="post">
+<!-- $Input field for value to convert -->
+        <div class="form-row">
+            <label for="value">Value:</label>
+            <input type="text" name="value" id="value">
+        </div>
+<!-- $Dropdowns for selecting units -->
+        <div class="form-row">
+            <label for="from_unit">From:</label>
+            <select name="from_unit" id="from_unit">
+                <option value="km">Kilometers (km)</option>
+                <option value="mls">Miles (mls)</option>
+                <option value="au">Astronomical Units (AU)</option>
+                <option value="ly">Light-Years (LY)</option>
+                <option value="pc">Parsecs (PC)</option>
+                <option value="kpc">Kiloparsecs (KPC)</option>
+                <option value="mpc">Megaparsecs (MPC)</option>
+            </select>
+        </div>
+<!-- $Dropdown for selecting target unit -->
+        <div class="form-row">
+            <label for="to_unit">To:</label>
+            <select name="to_unit" id="to_unit">
+                <option value="km">Kilometers (km)</option>
+                <option value="mls">Miles (mls)</option>
+                <option value="au">Astronomical Units (AU)</option>
+                <option value="ly">Light-Years (LY)</option>
+                <option value="pc">Parsecs (PC)</option>
+                <option value="kpc">Kiloparsecs (KPC)</option>
+                <option value="mpc">Megaparsecs (MPC)</option>
+            </select>
+        </div>
+
+        <br>
+        <button type="submit">Convert</button>
+
+    </form>
+
+    {% if error %}
+        <h3 style="color:red;">{{ error }}</h3>
+    {% endif %}
+
+    {% if result %}
+<!-- $Display the conversion result -->
+    <div class="result-box">
+
+        <h2>Converted Value:</h2>
+
+        <p style="font-size: 25px; font-weight: bold;">
+            {{ result }}
+        </p>
+
+    </div>
+    {% endif %}
+
+    <br>
+    <a href="/">Back to Dashboard</a>
+
+</body>
+</html>

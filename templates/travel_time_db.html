@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BRB821G31B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BRB821G31B');
+</script>
+
+    <title>Travel Time Calculator V2</title>
+     <link rel="icon"
+          type="image/png"
+          href="{{ url_for('static', filename='images/rocket.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+    <h1>Travel Time Calculator V2 (Database)</h1>
+
+    <form method="post">
+
+        <label for="destination">Select Destination:</label>
+        <select name="destination" id="destination">
+            {% for object in space_objects %}
+                <option value="{{ object }}" {% if object == destination %}selected{% endif %}>
+                    {{ object }}
+                </option>
+            {% endfor %}
+        </select><br>
+
+        <label for="spacecraft">Select Spacecraft:</label>
+        <select name="spacecraft" id="spacecraft">
+            <option value="Apollo 10" {% if spacecraft == "Apollo 10" %}selected{% endif %}>Apollo 10 (11.08 km/s)</option>
+            <option value="Voyager 1" {% if spacecraft == "Voyager 1" %}selected{% endif %}>Voyager 1 (17.0 km/s)</option>
+            <option value="Voyager 2" {% if spacecraft == "Voyager 2" %}selected{% endif %}>Voyager 2 (15.4 km/s)</option>
+            <option value="New Horizons" {% if spacecraft == "New Horizons" %}selected{% endif %}>New Horizons (16.26 km/s)</option>
+            <option value="Parker Solar Probe" {% if spacecraft == "Parker Solar Probe" %}selected{% endif %}>Parker Solar Probe (192 km/s)</option>
+            <option value="JWST" {% if spacecraft == "JWST" %}selected{% endif %}>JWST (0.6 km/s)</option>
+            <option value="10% Speed of Light" {% if spacecraft == "10% Speed of Light" %}selected{% endif %}>10% Speed of Light (29,979 km/s)</option>
+        </select><br><br>
+
+        <button type="submit">Calculate</button>
+
+    </form>
+
+    {% if error %}
+        <h3 style="color:red;">{{ error }}</h3>
+    {% endif %}
+
+    {% if days %}
+    <div class="result-box">
+
+        <h2>Travel Time to:</h2>
+
+        <p style="font-size: 25px; font-weight: bold;">
+            {{ destination }}
+        </p>
+
+        {% if spacecraft %}
+            <p>
+                Spacecraft:
+                {% if spacecraft == "Apollo 10" %}
+                    Apollo 10 (Crewed)
+                {% else %}
+                    {{ spacecraft }}
+                {% endif %}
+                at {{ speed }} km/s or {{ mph }} mph
+            </p>
+        {% endif %}
+
+        <p>Distance: {{ distance }}</p>
+        <p>Days: {{ days }}</p>
+        <p>Years: {{ years }}</p>
+
+    </div>
+    {% endif %}
+
+    <br>
+    <a href="/">Back to Dashboard</a>
+
+</body>
+</html>

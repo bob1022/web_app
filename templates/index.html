@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-BRB821G31B"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-BRB821G31B");
+    </script>
+
+    <title>Astronomy Dashboard</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/rocket.png') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='main.css') }}"
+    />
+  </head>
+  <body>
+    <h1 style="background: red; color: white">TEST - JULY 8</h1>
+    <h1>Astronomy Tools Dashboard</h1>
+
+    <hr />
+
+    <h2>Tools</h2>
+
+    <div class="main-buttons">
+      <form action="/travel_time">
+        <button type="submit">Travel Time Calculator - Manual Input V1</button>
+      </form>
+
+      <form action="/travel_time_db">
+        <button type="submit">
+          Travel Time Calculator - Database Input V2
+        </button>
+      </form>
+
+      <form action="/astro_converter">
+        <button type="submit">Astro Unit Converter</button>
+      </form>
+
+      <a href="/stellarium" target="_blank">
+        <button type="button">Open Stellarium (New Tab)</button>
+      </a>
+    </div>
+
+    <!-- $Help Buttons -->
+    <div class="help-buttons">
+      <button onclick="openModal('stellarium')">Stellarium Instructions</button>
+      <button onclick="openModal('lightyear')">Light-Year Definition</button>
+      <button onclick="openModal('general')">General Instructions</button>
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modal-text"></div>
+      </div>
+    </div>
+
+    <script>
+      function openModal(type) {
+        const content = {
+          stellarium: `Using Stellarium with This App
+
+            1. Click "Open Stellarium" to launch Stellarium Web in a new tab.
+            2. Search for stars, planets, galaxies, or deep-space objects.
+            3. Record the object name and displayed distance.
+            4. Return to the Astronomy Dashboard tab.
+            5. Enter the object name and distance manually into Travel 
+               Time Calculator V1.
+
+            Tips:
+            • Use V1 for manual distances from Stellarium
+            • Use V2 for built-in database objects
+            • Keep both tabs open for faster workflow
+            Once both Stellarium and the Astronomy Travel Calculator tabs
+            are open, check the browser to see if it has a split view 
+            function. If it has, explore using split view for a more 
+            efficient use of Stellarium and the
+            Time Travel Calculator – User input. It makes the
+            experience much more enjoyable.`,
+
+          lightyear: `Understanding Light-Years
+
+            A light-year is the distance light travels in one year.
+            Light moves at about 186,000 miles per second (300,000 km/s).
+
+            The Earth has a circumference of about 24,901 miles.
+            If a light beam could circle the Earth, it would do
+            so about 7.5 times in one second!
+
+            That means:
+            1 light-year ≈ 5.88 trillion miles (9.46 trillion km)
+
+            Why use light-years?
+            Space is so vast that miles or kilometers become impractical.
+
+            Examples:
+            Earth to Sun: about 8 light-minutes
+            Nearest star (Alpha Centauri): 4.37 light-years
+            Milky Way galaxy: ~100,000 light-years across
+
+            When you see a distance in light-years, you are also looking back
+            in time. If a star is 100 light-years away, the light you see today
+            left that star 100 years ago.
+
+            Other units used in astronomy include:
+            Astronomical Unit (AU): Average distance from Earth to Sun 
+                  (~93 million miles)
+            Parsec (pc): About 3.26 light-years
+            Kiloparsec (kpc): 1,000 parsecs
+            Megaparsec (Mpc): 1 million parsecs`,
+
+          general: `Use the tools on this dashboard to explore astronomical distances and travel times.
+
+            While space is the most visible object to most people on Earth, it is also one of the most misunderstood. This website is designed to help put its vastness into better perspective.
+
+            The first thing to understand is the light-year. Under the yellow buttons, click on Light-Year Definition. When you read this, you should gain a better understanding of what a light-year represents.
+
+            Once you have a basic understanding of the light-year, this will help you understand larger units such as:
+            • Parsec (3.26 light-years)
+            • Kiloparsec (1,000 parsecs)
+            • Megaparsec (1,000,000 parsecs)
+            • Gigaparsec (1,000,000,000 parsecs)
+
+            Use the Travel Time Calculator – Database Input (V2) to calculate how long it would take to travel to different objects in space. These objects are stored in a built-in database. Once a destination is selected, choose a spacecraft, then press Calculate to determine travel time.
+
+            Use the Travel Time Calculator – User Input (V1) to manually enter object data from Stellarium. Once Destination, Distance, Units, and Spacecraft are selected, you can calculate custom travel times.
+            
+            In both travel time calculators, when selecting a spacecraft for travel time, you will see 10% speed of light. Most physicists agree that 10% light speed is the highest possible speed man can ever achieve. 
+
+            Use the Astro Unit Converter to convert between:
+            • Kilometers
+            • Miles
+            • Astronomical Units
+            • Light-Years
+            • Parsecs
+            • Kiloparsecs
+            • Megaparsecs`,
+        };
+
+        document.getElementById("modal-text").innerText = content[type];
+        document.getElementById("modal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("modal").style.display = "none";
+      }
+    </script>
+
+    <footer class="footer">
+      Astronomy Tools Dashboard v1.0 | Built with Flask <br /><br />Starry Night
+      over the Rhone - Vincent Van Gogh 1888
+    </footer>
+  </body>
+</html>
