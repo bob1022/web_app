@@ -48,14 +48,87 @@ def format_distance(distance_km):
 
 
 space_objects = {
-    "Moon": {"distance": 384400, "unit": "km"},
-    "Mars": {"distance": 225000000, "unit": "km"},
-    "Jupiter": {"distance": 778000000, "unit": "km"},
-    "Pluto": {"distance": 5900000000, "unit": "km"},
-    "Alpha Centauri": {"distance": 4.37, "unit": "ly"},
-    "Betelgeuse": {"distance": 642.5, "unit": "ly"},
-    "Capella": {"distance": 42.9, "unit": "ly"},
-    "Andromeda Galaxy": {"distance": 0.778, "unit": "mpc"}
+
+    # & Planets
+    "Mercury": {
+        "distance": 57_900_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+    "Venus": {
+        "distance": 108_200_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+    "Earth": {
+        "distance": 149_600_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+    "Mars": {
+        "distance": 227_900_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+    "Jupiter": {
+        "distance": 778_600_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+    "Saturn": {
+        "distance": 1_433_500_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+    "Uranus": {
+        "distance": 2_872_500_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+    "Neptune": {
+        "distance": 4_495_100_000,
+        "unit": "km",
+        "category": "Planet"
+    },
+
+    # & Dwarf Planets
+    "Pluto": {
+        "distance": 5_906_000_000,
+        "unit": "km",
+        "category": "Dwarf Planet"
+    },
+
+    # & Moons
+    "Moon": {
+        "distance": 384_400,
+        "unit": "km",
+        "category": "Moon"
+    },
+
+    # & Stars
+    "Alpha Centauri": {
+        "distance": 4.37,
+        "unit": "ly",
+        "category": "Star"
+    },
+    "Betelgeuse": {
+        "distance": 642.5,
+        "unit": "ly",
+        "category": "Star"
+    },
+    "Capella": {
+        "distance": 42.9,
+        "unit": "ly",
+        "category": "Star"
+    },
+
+    # & Galaxies
+    "Andromeda Galaxy": {
+        "distance": 0.778,
+        "unit": "mpc",
+        "category": "Galaxy"
+    }
+
 }
 
 @app.route("/")
