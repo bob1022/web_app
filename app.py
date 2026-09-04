@@ -104,7 +104,12 @@ space_objects = {
         "unit": "km",
         "category": "Moon"
     },
-
+    "Ganymede": {
+        "distance": 5.203,
+        "unit": "au",
+        "category": "Moon"
+    },
+    
     # & Stars
     "Alpha Centauri": {
         "distance": 4.37,
